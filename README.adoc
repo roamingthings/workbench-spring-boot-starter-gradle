@@ -1,0 +1,26 @@
+# Spring Boot Starter Workbench Project utilizing Gradle as Build Tool
+
+This workbench project demonstrates how to setup a Spring Boot Starter and Auto Configuration as a project using Gradle.
+
+It includes the following sub-projects:
+
+* `greet-library`: A sample library that is configured by the Starter and is _mandatory_ for all consumer applications. It is therefore automatically included as a transitive dependency.
+* `greet-opt-library`: A sample library that is configured by the Starter and is _optional_ for consumer applications. It has to be explicitly declared as a dependency by the consumer.
+* `gradle-workbench-spring-boot-autoconfigure`: The autoconfiguration implementation. It shows how to handle classes that may not be present on the classpath when the consumer is running.
+* `gradle-workbench-spring-boot-starter`: The Spring Boot Starter that is declared as a dependency by the consumer and references all mandatory transitive dependencies.
+* `sample-application-simple`: A cli Spring Boot application demonstrating the usage of the Starter without using the optional library.
+* `sample-application-optional`: A cli Spring Boot application demonstrating the usage of the Starter including the optional library.
+
+## How to build
+
+The libraries, starter and autoconfiguration are build as Gradle multi-project. The sample applications are separate Gradle projects.
+
+The starter project has to be build and published to the local maven repository once before building the sample applications.
+
+### Build the Starter and Libraries
+
+To build the starter, auto-configuration and library projects and publish them to the local maven repository use `./gradlew clean build publishToMavenLocal`.
+
+### Build and run the Sample Applications
+
+In either the `sample-application-simple` or `sample-application-optional` folder use `./gradlew clean bootRun` to start the application.

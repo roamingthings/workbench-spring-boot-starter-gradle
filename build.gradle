@@ -1,0 +1,88 @@
+buildscript {
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        jcenter()
+    }
+    // All dependencies needed for the build script (at build time) are listed here.
+    dependencies {
+        classpath "com.github.ben-manes:gradle-versions-plugin:${versionsPluginVersion}"
+        classpath "net.researchgate:gradle-release:${gradleReleasePluginVersion}"
+        classpath "org.hibernate.build.gradle:gradle-maven-publish-auth:${mavenPublishAuthPluginVersion}"
+        classpath "org.junit.platform:junit-platform-gradle-plugin:${junitPlatformPluginVersion}"
+    }
+}
+
+//apply plugin: 'java'
+apply plugin: 'net.researchgate.release'
+apply plugin: 'maven'
+apply plugin: 'maven-publish'
+apply plugin: 'maven-publish-auth'
+
+apply from: 'gradle/dependencyUpdates.gradle'
+
+group = 'de.roamingthings.workbench'
+
+release {
+    buildTasks = ['releaseBuild']
+}
+
+task releaseBuild {
+    dependsOn subprojects.findResults { it.tasks.findByName('build') }
+}
+
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'maven-publish'
+    apply plugin: 'maven-publish-auth'
+
+    group = 'de.roamingthings.workbench'
+
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        jcenter()
+    }
+
+    task sourceJar(type: Jar) {
+        from sourceSets.main.allJava
+    }
+
+    publishing {
+        publications {
+            all {
+                pom.withXml {
+                    asNode().dependencies.'*'.findAll() {
+
+                        it.scope.text() == 'runtime' && project.configurations.compile.allDependencies.find { dep -> dep.name == it.artifactId.text() }
+
+                    }.each { it.scope*.value = 'compile' }
+                }
+            }
+            mavenJava(MavenPublication) {
+                artifactId "$project.name"
+                from components.java
+
+                artifact sourceJar {
+                    classifier "sources"
+                }
+            }
+        }
+        repositories {
+            maven {
+                if(project.version.endsWith('-SNAPSHOT')) {
+                    name = "snapshot-repo"
+                    url "https://your.repo.de/snapshots/"
+                } else {
+                    name = "release-repo"
+                    url "https://your.repo.de/releases/"
+                }
+            }
+        }
+    }
+}
+
+afterReleaseBuild.dependsOn ':gradle-workbench-spring-boot-autoconfigure:publish', ':gradle-workbench-spring-boot-autoconfigure-starter:publish'

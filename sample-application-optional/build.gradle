@@ -1,0 +1,32 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:2.0.4.RELEASE")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+dependencies {
+    compile("org.springframework.boot:spring-boot-starter")
+
+    compile("de.roamingthings.workbench:gradle-workbench-spring-boot-starter:1.0.0-SNAPSHOT")
+    // Use the optional library
+    compile("de.roamingthings.workbench:greet-opt-library:1.0.0-SNAPSHOT")
+
+    testCompile("junit:junit")
+}

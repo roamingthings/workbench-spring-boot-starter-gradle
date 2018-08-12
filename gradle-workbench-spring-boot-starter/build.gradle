@@ -1,0 +1,7 @@
+// Don't use the spring Gradle plugins here since it would try to build a bootJar requiring a Main class
+
+// Define all transitive (mandatory) dependency for consumer projects
+dependencies {
+    compile project(':gradle-workbench-spring-boot-autoconfigure')
+    compile project(":greet-library")
+}
