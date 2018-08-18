@@ -1,4 +1,7 @@
 buildscript {
+    ext {
+        kotlin_version='1.2.60'
+    }
     repositories {
         mavenCentral()
     }
@@ -7,8 +10,12 @@ buildscript {
     }
 }
 
+plugins {
+    id "org.jetbrains.kotlin.jvm" version "1.2.60"
+    id "org.jetbrains.kotlin.plugin.spring" version "1.2.60"
+}
+
 apply plugin: 'java'
-apply plugin: 'eclipse'
 apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
@@ -21,10 +28,21 @@ repositories {
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
+tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
+    kotlinOptions {
+        freeCompilerArgs = ["-Xjsr305=strict"]
+        jvmTarget = "1.8"
+    }
+}
+
 dependencies {
     compile("org.springframework.boot:spring-boot-starter")
+    compile("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+    compile("org.jetbrains.kotlin:kotlin-reflect")
 
-    compile("de.roamingthings.workbench:gradle-workbench-spring-boot-starter:1.0.0-SNAPSHOT")
+    // Only use the starter which does not include the optional library
+    // compile("de.roamingthings.workbench:gradle-workbench-spring-boot-starter:1.0.0-SNAPSHOT")
+    compile("de.roamingthings.workbench:gradle-workbench-spring-boot-starter-kt:1.0.0-SNAPSHOT")
     // Use the optional library
     compile("de.roamingthings.workbench:greet-opt-library:1.0.0-SNAPSHOT")
 
