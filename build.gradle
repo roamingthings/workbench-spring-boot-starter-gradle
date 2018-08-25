@@ -18,6 +18,7 @@ apply plugin: 'maven'
 apply plugin: 'maven-publish'
 apply plugin: 'maven-publish-auth'
 
+apply from: 'gradle/integrationTest.gradle'
 apply from: 'gradle/dependencyUpdates.gradle'
 
 group = 'de.roamingthings.workbench'
@@ -84,4 +85,4 @@ subprojects {
     }
 }
 
-afterReleaseBuild.dependsOn ':gradle-workbench-spring-boot-autoconfigure:publish', ':gradle-workbench-spring-boot-autoconfigure-starter:publish'
+afterReleaseBuild.dependsOn ':gradle-workbench-spring-boot-autoconfigure:publish', ':gradle-workbench-spring-boot-autoconfigure-starter:publish', ':greet-library:publish', ':greet-opt-library:publish'

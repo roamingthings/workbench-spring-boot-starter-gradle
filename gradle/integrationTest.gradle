@@ -1,0 +1,16 @@
+task integrationTest
+integrationTest.dependsOn ':integration-test:test'
+
+gradle.taskGraph.whenReady { graph ->
+    def tasksIntegrationTest = [
+            ":integrationTest"
+    ]
+    def enableIntegrationTest = tasksIntegrationTest.any { graph.hasTask(it) }
+    if (!enableIntegrationTest) {
+        println "Disabling IntegrationTest build tasks because none of the following tasks is executed: ${tasksIntegrationTest}"
+        graph.allTasks.findAll { it.project.name == "integration-test" && it.name != "clean"}.each { task ->
+            println "Disabling ${task}"
+            task.enabled = false
+        }
+    }
+}
