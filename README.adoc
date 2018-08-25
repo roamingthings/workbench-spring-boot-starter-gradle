@@ -12,6 +12,7 @@ It includes the following sub-projects:
 * `gradle-workbench-spring-boot-starter-kt`: The Spring Boot Starter referencing the Kotlin implementation of the autoconfiguration.
 * `sample-application-simple`: A cli Spring Boot application demonstrating the usage of the Starter without using the optional library.
 * `sample-application-optional`: A cli Spring Boot application demonstrating the usage of the Starter including the optional library.
+* `integration-test`: A module demonstrating how to write integration tests that utilize the auto-configuration implementation.
 
 ## How to build
 
@@ -26,3 +27,8 @@ To build the starter, auto-configuration and library projects and publish them t
 ### Build and run the Sample Applications
 
 In either the `sample-application-simple` or `sample-application-optional` folder use `./gradlew clean bootRun` to start the application.
+
+### Execute the Integration Tests
+
+By default the integration-tests will be disabled. To run them use the `integrationTest` gradle task.
+
