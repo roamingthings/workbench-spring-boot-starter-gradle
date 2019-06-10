@@ -9,7 +9,6 @@ buildscript {
         classpath "com.github.ben-manes:gradle-versions-plugin:${versionsPluginVersion}"
         classpath "net.researchgate:gradle-release:${gradleReleasePluginVersion}"
         classpath "org.hibernate.build.gradle:gradle-maven-publish-auth:${mavenPublishAuthPluginVersion}"
-        classpath "org.junit.platform:junit-platform-gradle-plugin:${junitPlatformPluginVersion}"
     }
 }
 
