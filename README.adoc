@@ -32,3 +32,6 @@ In either the `sample-application-simple` or `sample-application-optional` folde
 
 By default the integration-tests will be disabled. To run them use the `integrationTest` gradle task.
 
+## Where to get more Information
+
+A great video outlining some of these concepts is https://www.youtube.com/watch?v=D33awJnlhWg[YouTube: Spring Tips: Organizational Consistency in your Spring Boot Applications]
