@@ -34,4 +34,4 @@ By default the integration-tests will be disabled. To run them use the `integrat
 
 ## Where to get more Information
 
-A great video outlining some of these concepts is https://www.youtube.com/watch?v=D33awJnlhWg[YouTube: Spring Tips: Organizational Consistency in your Spring Boot Applications]
+See the https://docs.spring.io/spring-boot/docs/2.2.4.RELEASE/reference/html/spring-boot-features.html#boot-features-custom-starter[Spring Boot Documentation] for more information
